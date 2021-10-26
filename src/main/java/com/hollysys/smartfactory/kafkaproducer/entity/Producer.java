@@ -1,5 +1,7 @@
 package com.hollysys.smartfactory.kafkaproducer.entity;
 
+import lombok.Value;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -15,6 +17,7 @@ public class Producer implements Serializable {
     private Integer id;
 
     private String name;
+
 
     private String item;
 

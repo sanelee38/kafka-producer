@@ -172,18 +172,18 @@ public class ProducerController extends BaseController{
         resultStatus.setStatus(0);
         String producerString = JSON.toJSONString(resultStatus);
         try {
-            ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send("kafka-topic", producerString);
+            ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send("local-kafka-topic", producerString);
             future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
                 @Override
                 public void onFailure(Throwable throwable) {
-                    log.error("kafka-topic - 生产者 发送消息失败：" + throwable.getMessage());
-                    System.err.println("kafka-topic - 生产者 发送消息失败：" + throwable.getMessage());
+                    log.error("local-kafka-topic - 生产者 发送消息失败：" + throwable.getMessage());
+                    System.err.println("local-kafka-topic - 生产者 发送消息失败：" + throwable.getMessage());
                 }
 
                 @Override
                 public void onSuccess(SendResult<String, Object> stringObjectSendResult) {
-                    log.info("kafka-topic - 生产者 发送消息成功：" + stringObjectSendResult.toString());
-                    System.out.println("kafka-topic - 生产者 发送消息成功：" + stringObjectSendResult.toString());
+                    log.info("local-kafka-topic - 生产者 发送消息成功：" + stringObjectSendResult.toString());
+                    System.out.println("local-kafka-topic - 生产者 发送消息成功：" + stringObjectSendResult.toString());
                 }
             });
         }catch (Exception e){

@@ -156,7 +156,7 @@ public class ProducerServiceImpl implements ProducerService {
      */
     @Override
     public Producer insert(Producer producer) {
-        this.producerDao.insert(producer);
+
         ValueOperations<String, List<Producer>> operations = redisTemplate.opsForValue();
 //        String key = "producers";
         List<Producer> producerList = operations.get(key);
@@ -172,6 +172,7 @@ public class ProducerServiceImpl implements ProducerService {
                 redisUtil.expire(key, 600);
             }
         }
+        this.producerDao.insert(producer);
         return producer;
     }
 
@@ -193,7 +194,7 @@ public class ProducerServiceImpl implements ProducerService {
      */
     @Override
     public int update(Producer producer) {
-        int update = this.producerDao.update(producer);
+
         ValueOperations<String, List<Producer>> operations = redisTemplate.opsForValue();
 //        String key = "producers";
         String idkey = "producers_" + producer.getId();
@@ -213,6 +214,7 @@ public class ProducerServiceImpl implements ProducerService {
         if (hasKeyId) {
             redisTemplate.delete(idkey);
         }
+        int update = this.producerDao.update(producer);
         return update;
     }
 
